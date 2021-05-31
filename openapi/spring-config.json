@@ -15,5 +15,6 @@
   "useBeanValidation": true,
   "serializableModel": true,
   "java8": true,
-  "dateLibrary": "java8"
+  "dateLibrary": "java8",
+  "additionalModelTypeAnnotations": "@lombok.Builder @lombok.NoArgsConstructor @lombok.AllArgsConstructor"
 }

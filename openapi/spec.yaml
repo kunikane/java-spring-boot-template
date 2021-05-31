@@ -1,0 +1,47 @@
+openapi: 3.0.0
+info:
+  title: OpenAPI example
+  description: This is a OpenAPI example
+  version: 1.0.0-SNAPSHOT
+servers:
+  - url: https://example.sys5.work/api/v1
+    description: prod
+  - url: https://example-dev.sys5.work/api/v1
+    description: dev
+    variables:
+      host:
+        default: localhost
+      port:
+        default: '8080'
+paths:
+  /example/items:
+    get:
+      operationId: work.sys5.example.controller.getItems
+      tags:
+        - exampleItems
+      summary: For example
+      description: returns items
+      parameters:
+        - in: query
+          name: offset
+          schema:
+            type: integer
+          description: The number of items to skip before starting to collect the result set
+      responses:
+        '200':
+          description: items
+          content:
+            application/json:
+              schema:
+                type: array,
+                items: {
+                  $ref: '#/components/schemas/example_item'
+                }
+components:
+  schemas:
+    example_item:
+      description: example item
+      type: object
+      properties:
+        col1:
+          type: string

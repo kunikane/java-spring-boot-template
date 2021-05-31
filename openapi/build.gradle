@@ -1,0 +1,52 @@
+apply plugin: 'java-library'
+repositories {
+    mavenCentral()
+}
+dependencies {
+    implementation 'org.openapitools:openapi-generator-cli:5.1.1'
+}
+
+task genServerCode(type: JavaExec) {
+    main = "org.openapitools.codegen.OpenAPIGenerator"
+    classpath = sourceSets.main.runtimeClasspath
+
+    // If you use swagger-codegen-cli, following options are required for reflection.
+//        jvmArgs("--illegal-access=deny",
+//                "--add-opens", "java.base/java.util=ALL-UNNAMED",
+//                "--add-opens", "java.base/sun.nio.fs=ALL-UNNAMED")
+
+    // see https://github.com/OpenAPITools/openapi-generator
+    args("generate",
+            "-i", "spec.yaml",
+            "-g", "spring",
+            "-c", "spring-config.json",
+            "-o", "servers")
+    doFirst {
+        delete file('servers')
+    }
+}
+
+task genHtmlDocs(type: JavaExec) {
+    main = "org.openapitools.codegen.OpenAPIGenerator"
+    classpath = sourceSets.main.runtimeClasspath
+
+    // see https://github.com/OpenAPITools/openapi-generator
+    args("generate",
+            "-i", "spec.yaml",
+            "-g", "html",
+            "-o", "../docs")
+    doFirst {
+        delete file('doc')
+    }
+}
+
+task reflectSpec(type: Copy) {
+    from "servers/src/main/java/work/sys5/example"
+    into "../apiserver/src/main/java/work/sys5/example"
+}
+
+build.dependsOn genServerCode
+build.dependsOn genHtmlDocs
+reflectSpec.dependsOn build
+
+defaultTasks 'reflectSpec'

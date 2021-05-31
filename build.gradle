@@ -1,59 +1,16 @@
-project(":openapi") {
-    apply plugin: 'java-library'
+buildscript {
+    ext {
+        springBootVersion = '2.3.10.RELEASE'
+    }
     repositories {
         mavenCentral()
     }
     dependencies {
-        implementation 'org.openapitools:openapi-generator-cli:5.1.1'
+        classpath "org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}"
     }
-
-    task genServer(type: JavaExec) {
-        main = "org.openapitools.codegen.OpenAPIGenerator"
-        classpath = sourceSets.main.runtimeClasspath
-
-        // If you use swagger-codegen-cli, following options are required for reflection.
-//        jvmArgs("--illegal-access=deny",
-//                "--add-opens", "java.base/java.util=ALL-UNNAMED",
-//                "--add-opens", "java.base/sun.nio.fs=ALL-UNNAMED")
-
-        // see https://github.com/OpenAPITools/openapi-generator
-        args("generate",
-                "-i", "openapi.yaml",
-                "-g", "spring",
-                "-c", "spring-config.json",
-                "-o", "servers")
-        doLast {
-            delete file('servers/settings.gradle')
-            delete file('servers/build.gradle')
-        }
-    }
-
-    defaultTasks 'genServer'
-
-//    task genServer(type: JavaExec) {
-//        main = "io.swagger.codegen.v3.cli.SwaggerCodegen"
-//        classpath = sourceSets.main.runtimeClasspath
-//
-//
-//        // https://github.com/swagger-api/swagger-codegen/wiki/Server-stub-generator-HOWTO#java-springboot
-//        jvmArgs("--illegal-access=deny",
-//                "--add-opens", "java.base/java.util=ALL-UNNAMED",
-//                "--add-opens", "java.base/sun.nio.fs=ALL-UNNAMED")
-//        args("generate",
-//                "--api-package", "work.sys5.api",
-//                "--model-package", "work.sys5.model",
-//                "--invoker-package", "work.sys5.invoker",
-//                "--artifact-id", "myexample",
-//                "--artifact-version", "1.0.0-SNAPSHOT",
-//                "-i", "swagger.yaml",
-//                "-l", "spring",
-//                "-o", "servers")
-//        doLast {
-//            delete file('clients/settings.gradle')
-//            delete file('clients/build.gradle')
-//        }
-//    }
-//
-//    defaultTasks 'genClient'
 }
 
+plugins {
+    id "io.spring.dependency-management" version "1.0.11.RELEASE"
+    id 'java'
+}
