@@ -1,0 +1,19 @@
+{
+  "comment": "see: https://openapi-generator.tech/docs/generators/spring/",
+  "library": "spring-boot",
+  "groupId": "work.sys5",
+  "artifactId": "example",
+  "artifactVersion": "1.0.0",
+  "snapshotVersion": true,
+  "basePackage": "work.sys5.example",
+  "invokerPackage": "work.sys5.example.invoker",
+  "modelPackage": "work.sys5.example.model",
+  "apiPackage": "work.sys5.example.controller",
+  "configPackage": "work.sys5.example.configuration",
+  "useTags": true,
+  "interfaceOnly": true,
+  "useBeanValidation": true,
+  "serializableModel": true,
+  "java8": true,
+  "dateLibrary": "java8"
+}

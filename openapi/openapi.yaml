@@ -1,0 +1,42 @@
+openapi: 3.0.0
+info:
+  title: OpenAPI example
+  description: This is a OpenAPI example
+  version: 1.0.0-SNAPSHOT
+servers:
+  - url: https://example.sys5.work/api/v1
+    description: prod
+  - url: https://example-dev.sys5.work/api/v1
+    description: dev
+    variables:
+      host:
+        default: localhost
+      port:
+        default: '8080'
+paths:
+  /health:
+    get:
+      operationId: work.sys5.example.controller.health
+      tags:
+        - health
+      summary: For healthcheck
+      description: returns server health
+      responses:
+        '200':
+          description: it is healthy
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/get_health_response'
+components:
+  schemas:
+    get_health_response:
+      description: server health
+      type: object
+      properties:
+        status:
+          type: string
+          enum:
+            - ok
+      required:
+        - status
