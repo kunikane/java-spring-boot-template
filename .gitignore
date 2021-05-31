@@ -5,7 +5,8 @@
 build
 
 ### Ignore OpenAPI temporary outputs ###
-openapi/servers
+openapi/server
+openapi/jmeter
 
 ### STS ###
 .apt_generated

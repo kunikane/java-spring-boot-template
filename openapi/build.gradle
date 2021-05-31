@@ -20,9 +20,9 @@ task genServerCode(type: JavaExec) {
             "-i", "spec.yaml",
             "-g", "spring",
             "-c", "spring-config.json",
-            "-o", "servers")
+            "-o", "server")
     doFirst {
-        delete file('servers')
+        delete file('server')
     }
 }
 
@@ -36,12 +36,26 @@ task genHtmlDocs(type: JavaExec) {
             "-g", "html",
             "-o", "../docs")
     doFirst {
-        delete file('doc')
+        delete file('../docs')
+    }
+}
+
+task genJmeter(type: JavaExec) {
+    main = "org.openapitools.codegen.OpenAPIGenerator"
+    classpath = sourceSets.main.runtimeClasspath
+
+    // see https://github.com/OpenAPITools/openapi-generator
+    args("generate",
+            "-i", "spec.yaml",
+            "-g", "jmeter",
+            "-o", "jmeter")
+    doFirst {
+        delete file('../jmeter')
     }
 }
 
 task reflectSpec(type: Copy) {
-    from "servers/src/main/java/work/sys5/example"
+    from "server/src/main/java/work/sys5/example"
     into "../apiserver/src/main/java/work/sys5/example"
 }
 
