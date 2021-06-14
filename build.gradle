@@ -7,6 +7,7 @@ buildscript {
     }
     dependencies {
         classpath "org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}"
+        classpath "com.diffplug.spotless:spotless-plugin-gradle:5.13.0"
     }
 }
 
