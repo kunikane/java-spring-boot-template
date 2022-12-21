@@ -23,7 +23,7 @@ Actions:
     Configuration:
       # Required - Steps are sequential instructions that run shell commands
       Steps:
-        - name: Hello_world_actionHello_world_action
+        - name: AAAAAAAA
           uses: actions/hello-world-javascript-action@v1.1
           with:
             who-to-greet: 'Mona the Octocat'
